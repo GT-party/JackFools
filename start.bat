@@ -1,4 +1,4 @@
 @echo off
 git pull
-py script.py
+py jackfool.py
 pause
