@@ -1,10 +1,9 @@
-import os
-from configs import Config
+import os, sys
+from modules.configs import Config
 
 def cls(): os.system('cls' if os.name=='nt' else 'clear')
 
-if __name__ == "__main__":
-    cls()
+def init():
     
     # initial checks
     if not os.path.exists("./temp"): os.mkdir("./temp")
@@ -15,6 +14,7 @@ if __name__ == "__main__":
     if float(open(Config.version_path).read()) < Config.version:
         # if installed JBFools version don't equal actual version
         os.system("py -m pip install -r reqs.txt") #install new libs
+        open(Config.version_path, "w").write(str(Config.version)) # Update the local version
     
     if open(Config.webdriver_version_path).read() != Config.webdriver_version_path or \
         not os.path.exists("./temp/chromedriver.exe"):
@@ -26,3 +26,17 @@ if __name__ == "__main__":
         download([Config.webdriver_url], dest_dir="./temp") # Download archive with webdriver
         with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
         os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
+        open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version)) # Update the local version
+    
+    
+if __name__ == "__main__":
+    cls()
+    
+    if "-v" in sys.argv or "--version" in sys.argv: print("JBfools actual: " + Config.version + " (local: " + open(Config.version_path).read() + ")" + \
+                                                        + "\nWebDriver actual: " + Config.webdriver_version + " (local: " + open(Config.webdriver_version_path).read() + ")"
+                                                        )
+    #elif:
+    else: init()
+    
+    if "--ddos" in [_.lower() for _ in sys.argv]: 
+        from modules.ddos import JBDdos
