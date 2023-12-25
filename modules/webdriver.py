@@ -1,10 +1,10 @@
 from selenium import webdriver
-import os, logging
+import os
 
 class DDOSdriver(webdriver.Chrome):
     
     def __init__(self, options = webdriver.ChromeOptions(), 
-                 service = None, 
+                 service = webdriver.ChromeService(executable_path=r"./temp/chromedriver.exe", log_path=os.devnull), 
                  keep_alive: bool = True):
         
         options.headless = True
