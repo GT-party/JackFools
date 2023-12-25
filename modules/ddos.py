@@ -40,7 +40,7 @@ class JBDdos():
             
             print(" ".join(["[ ]" if x.is_alive() else "[X]" for x in started_proccess ]))
             
-            sleep(0.01)
+            sleep(0.1)
         
         cls()
             

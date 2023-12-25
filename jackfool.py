@@ -8,7 +8,7 @@ def init():
     # initial checks
     if not os.path.exists("./temp"): os.mkdir("./temp")
     if not os.path.exists(Config.version_path): open(Config.version_path, "w").write(str(Config.version))
-    if not os.path.exists(Config.webdriver_version_path): open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version))
+    # if not os.path.exists(Config.webdriver_version_path): open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version))
     
     
     if float(open(Config.version_path).read()) < Config.version:
@@ -16,17 +16,17 @@ def init():
         os.system("py -m pip install -r reqs.txt") #install new libs
         open(Config.version_path, "w").write(str(Config.version)) # Update the local version
     
-    if open(Config.webdriver_version_path).read() != Config.webdriver_version or \
-        (not os.path.exists("./temp/chromedriver.exe")):
+    # if open(Config.webdriver_version_path).read() != Config.webdriver_version or \
+    #     (not os.path.exists("./temp/chromedriver-win32")):
         
-        # if installed WebDriver version don't equal actual version
-        from modules.downloader import download
-        from zipfile import ZipFile
+    #     # if installed WebDriver version don't equal actual version
+    #     from modules.downloader import download
+    #     from zipfile import ZipFile
         
-        download([Config.webdriver_url], dest_dir="./temp") # Download archive with webdriver
-        with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
-        os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
-        open(Config.webdriver_version_path, "w").write(Config.webdriver_version) # Update the local version
+    #     download([Config.webdriver_url], dest_dir="./temp") # Download archive with webdriver
+    #     with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
+    #     os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
+    #     open(Config.webdriver_version_path, "w").write(Config.webdriver_version) # Update the local version
     
 
 
