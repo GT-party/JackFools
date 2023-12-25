@@ -18,7 +18,7 @@ def init():
     
     if open(Config.webdriver_version_path).read() != Config.webdriver_version or \
         (not os.path.exists("./temp/chromedriver.exe")):
-            
+        
         # if installed WebDriver version don't equal actual version
         from modules.downloader import download
         from zipfile import ZipFile
