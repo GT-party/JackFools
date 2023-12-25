@@ -4,7 +4,7 @@ from modules.configs import Config
 def cls(): os.system('cls' if os.name=='nt' else 'clear')
 
 def init():
-    
+    cls()
     # initial checks
     if not os.path.exists("./temp"): os.mkdir("./temp")
     if not os.path.exists(Config.version_path): open(Config.version_path, "w").write(str(Config.version))
@@ -31,17 +31,16 @@ def init():
 
 
 if __name__ == "__main__":
-    cls()
     
-    if "-v" in sys.argv or "--version" in sys.argv: print("JBfools actual: " + Config.version + " (local: " + open(Config.version_path).read() + ")" + \
-                                                        + "\nWebDriver actual: " + Config.webdriver_version + " (local: " + open(Config.webdriver_version_path).read() + ")"
+    if "-v" in sys.argv or "--version" in sys.argv: print("JBfools actual: " + str(Config.version) + " (local: " + open(Config.version_path).read() + ")" + \
+                                                          "\nWebDriver actual: " + str(Config.webdriver_version) + " (local: " + open(Config.webdriver_version_path).read() + ")"
                                                         )
     #elif:
-    else: init()
-    
-    
-    
-    if "--ddos" in [_.lower() for _ in sys.argv]: 
-        from modules.ddos import JBDdos
+    else: 
         
-        JBDdos().open_menu(None)
+        init()
+        
+        if "--ddos" in [_.lower() for _ in sys.argv]: 
+            from modules.ddos import JBDdos
+            
+            JBDdos().open_menu(None)

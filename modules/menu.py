@@ -19,7 +19,7 @@ class ParentMenu():
 
         while True:
             
-            option, index = pick.pick(options_list, title, indicator='=>', default_index=index,)
+            option, index = pick.pick(options_list, title, indicator='=>', default_index=index)
             
             if self.options[" ".join(options_list[index].split(" ")[1:])] is None: return
             else: self.options[" ".join(options_list[index].split(" ")[1:])].__call__()
