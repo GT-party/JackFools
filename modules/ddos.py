@@ -15,8 +15,7 @@ class JBDdos():
         if not os.path.exists(self.config.path): open(self.config.path, "w").write(ujson.dumps({"nickname": self.input_nickname()}))
         else: self.config.nickname = ujson.loads(open(self.config.path, "r").read())["nickname"]
         
-    def open_menu(self, back_function):
-        ParentMenu("DDOS", {"Назад", back_function})
+    def open_menu(self, back_function): ParentMenu("DDOS", {"Назад": back_function}).createMenu()
     
     def input_nickname(self):
         
@@ -24,9 +23,9 @@ class JBDdos():
         
         while True:
             
-            if not nickname: pass
-            elif not (len(nickname) < 11 and len(nickname) > 0): 
-                print(f"Длина никнейма должна быть от 1 до 11 символов...[{nickname}]")
+            if nickname == None: pass
+            elif nickname == "": return self.config.nickname
+            elif not (len(nickname) < 11 and len(nickname) > 0): print(f"Длина никнейма должна быть от 1 до 11 символов...[{nickname}]")
             else: return nickname
             
             nickname = input(f"DDOS никнейм [Enter, чтобы установить по дефолту: {self.config.nickname}]: ")

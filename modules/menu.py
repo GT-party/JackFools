@@ -14,11 +14,13 @@ class ParentMenu():
     def createMenu(self):
         
         options_list = [f"[{index}] {parametr}" for index, parametr in enumerate(self.options.keys())]
-        title = art.art(self.title)
+        title = art.text2art(self.title)
         index = 0
 
         while True:
             
             option, index = pick.pick(options_list, title, indicator='=>', default_index=index,)
-            self.options[" ".join(options_list[index].split(" ")[1:])].__call__()
+            
+            if self.options[" ".join(options_list[index].split(" ")[1:])] is None: return
+            else: self.options[" ".join(options_list[index].split(" ")[1:])].__call__()
         

@@ -16,8 +16,8 @@ def init():
         os.system("py -m pip install -r reqs.txt") #install new libs
         open(Config.version_path, "w").write(str(Config.version)) # Update the local version
     
-    if open(Config.webdriver_version_path).read() != Config.webdriver_version_path or \
-        not os.path.exists("./temp/chromedriver.exe"):
+    if open(Config.webdriver_version_path).read() != Config.webdriver_version or \
+        (not os.path.exists("./temp/chromedriver.exe")):
             
         # if installed WebDriver version don't equal actual version
         from modules.downloader import download
@@ -26,9 +26,10 @@ def init():
         download([Config.webdriver_url], dest_dir="./temp") # Download archive with webdriver
         with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
         os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
-        open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version)) # Update the local version
+        open(Config.webdriver_version_path, "w").write(Config.webdriver_version) # Update the local version
     
-    
+
+
 if __name__ == "__main__":
     cls()
     
@@ -38,5 +39,9 @@ if __name__ == "__main__":
     #elif:
     else: init()
     
+    
+    
     if "--ddos" in [_.lower() for _ in sys.argv]: 
         from modules.ddos import JBDdos
+        
+        JBDdos().open_menu(None)
