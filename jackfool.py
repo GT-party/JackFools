@@ -44,3 +44,10 @@ if __name__ == "__main__":
             from modules.ddos import JBDdos
             
             JBDdos().open_menu(None)
+            
+        elif "--guesspionage": 
+            from modules.minigames import Guesspionage
+            
+            Guesspionage().open_menu()
+        
+        else: pass
