@@ -13,13 +13,12 @@ def cls(): os.system('cls' if os.name=='nt' else 'clear')
     
 class JBDdos():
     
+    title = "ddos open lobby"
+    
     def __init__(self):
         from modules.configs import DDosConfig
         
         self.config = DDosConfig()
-        
-        if not os.path.exists(self.config.path): open(self.config.path, "w").write(ujson.dumps({"nickname": self.input_nickname()}))
-        else: self.config.nickname = ujson.loads(open(self.config.path, "r").read())["nickname"]
     
     def ddos_by_code(self, code: str, count: int = 8):
         
@@ -83,7 +82,12 @@ class JBDdos():
         if code == "0": self.open_menu()
         else: self.ddos_by_code(code)
     
-    def open_menu(self, back_function=None): ParentMenu("JBF-DDOS", {"Заддудосить": self.open_code_input_menu, "Назад": back_function}).createMenu()
+    def open_menu(self, back_function=None): 
+        
+        if not os.path.exists(self.config.path): open(self.config.path, "w").write(ujson.dumps({"nickname": self.input_nickname()}))
+        else: self.config.nickname = ujson.loads(open(self.config.path, "r").read())["nickname"]
+        
+        ParentMenu("JBF-DDOS", {"Заддудосить": self.open_code_input_menu, "Назад": back_function}).createMenu()
     
     def input_nickname(self):
         
