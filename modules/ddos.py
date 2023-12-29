@@ -3,7 +3,7 @@ import os, ujson, multiprocessing
 from time import sleep
 
 from modules.menu import ParentMenu
-from modules.webdriver import DDOSdriver
+from modules.webdriver import AuditorDriver
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -47,7 +47,7 @@ class JBDdos():
     
     def create_ddos_instance(self, code: str):
         
-        driver = DDOSdriver()
+        driver = AuditorDriver()
         
         driver.get(f"https://jackbox.fun?code={code}")
         
