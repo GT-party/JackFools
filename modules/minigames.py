@@ -95,8 +95,7 @@ class Guesspionage:
             
             full_menu_dict = {}
             
-            if not self.code: full_menu_dict.update({"Ввести код игры": self.open_code_input_menu})
-            elif not self.entred: full_menu_dict.update({"Войти в игру": None})
+            if not self.entred: full_menu_dict.update({"Войти в игру": None})
             else: full_menu_dict.update({"Ответить правильно": None,
                                          "Ответить неправильно": None})
             
