@@ -101,4 +101,3 @@ class JBDdos():
             else: return nickname
             
             nickname = input(f"DDOS никнейм [Enter, чтобы установить по дефолту: {self.config.nickname}]: ")
-        

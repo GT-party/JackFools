@@ -43,7 +43,14 @@ if __name__ == "__main__":
         if "--ddos" in [_.lower() for _ in sys.argv]: 
             from modules.ddos import JBDdos
             
-            JBDdos().open_menu(None)
+            try: 
+                sys.argv[sys.argv.index("--ddos") + 1]
+                if len(sys.argv[sys.argv.index("--ddos") + 1]) == 4: 
+                    try:
+                        sys.argv[sys.argv.index("--ddos") + 2]
+                        JBDdos().ddos_by_code(sys.argv[sys.argv.index("--ddos") + 1], int(sys.argv[sys.argv.index("--ddos") + 2]))
+                    except: JBDdos().ddos_by_code(sys.argv[sys.argv.index("--ddos") + 1])
+            except: JBDdos().open_menu(None)
             
         elif "--guesspionage": 
             from modules.minigames import Guesspionage
