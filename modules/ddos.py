@@ -20,14 +20,15 @@ class JBDdos():
         
         self.config = DDosConfig()
     
-    def ddos_by_code(self, code: str, count: int = 8):
+    def ddos_by_code(self, code: str, count: int = 8, nickname = "Tedeshi"):
         
+        nickname = self.config.nickname or nickname
         
         started_proccess:list[multiprocessing.Process] = []
         
         import art
         
-        for _ in range(count): started_proccess.append(multiprocessing.Process(target=self.create_ddos_instance, args=[code]))
+        for _ in range(count): started_proccess.append(multiprocessing.Process(target=self.create_ddos_instance, args=[code, nickname]))
         
         for p in started_proccess: p.start()
             
@@ -45,14 +46,14 @@ class JBDdos():
             
         
     
-    def create_ddos_instance(self, code: str):
+    def create_ddos_instance(self, code: str, nickname: str):
         
         driver = AuditorDriver()
         
         driver.get(f"https://jackbox.fun?code={code}")
         
         usernameinput = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/form/fieldset/input[2]")
-        usernameinput.send_keys(self.config.nickname)
+        usernameinput.send_keys(nickname)
 
         button_join = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/div/form/fieldset/button")))
         button_join.click()
@@ -84,10 +85,9 @@ class JBDdos():
     
     def open_menu(self, back_function=None): 
         
-        if not os.path.exists(self.config.path): open(self.config.path, "w").write(ujson.dumps({"nickname": self.input_nickname()}))
-        else: self.config.nickname = ujson.loads(open(self.config.path, "r").read())["nickname"]
-        
-        ParentMenu("JBF-DDOS", {"Заддудосить": self.open_code_input_menu, "Назад": back_function}).createMenu()
+        ParentMenu("JBF-DDOS", {"Заддудосить": self.open_code_input_menu,
+                                "Поменять никнейм": self.input_nickname,
+                                "Назад": back_function}).createMenu()
     
     def input_nickname(self):
         

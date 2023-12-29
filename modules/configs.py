@@ -1,3 +1,5 @@
+import os, ujson
+        
 class Config():
     
     # JackBoxFools config
@@ -16,4 +18,26 @@ class Config():
 class DDosConfig():
     
     nickname = "Tedeshi"
+    
+    restricted_parameters = ["path", "restricted_parameters"]
     path = "./temp/ddos.config"
+    
+    def __init__(self) -> None:
+        
+        if os.path.exists(self.path): 
+    
+            self.nickname = ujson.loads(open(self.path).read())["nickname"]
+            
+    def set_parameters(self, **kwargs):
+        
+        dictz:dict = ujson.loads(open(self.path, "r").read())
+        
+        with open(self.path, "w") as f:
+            
+            for key, value in kwargs.items():
+                if key in "path": continue
+                self.__setattr__(key, value)
+                dictz.update({key: value})
+            
+            f.write(ujson.dumps(dictz))
+                
