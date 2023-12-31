@@ -1,5 +1,4 @@
 
-        
 class Config():
     
     # JackBoxFools config
@@ -16,8 +15,6 @@ class Config():
     #webdriver_url = f"https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{webdriver_version}/win32/chrome-headless-shell-win32.zip"
     
 class DDosConfig():
-    
-    
     
     nickname = "Tedeshi"
     

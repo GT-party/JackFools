@@ -1,4 +1,4 @@
-import os, art, pick
+import os
 
 def cls(): os.system('cls' if os.name=='nt' else 'clear')
     
@@ -12,6 +12,7 @@ class ParentMenu():
         self.options = options
         
     def createMenu(self):
+        import art, pick
         
         options_list = [f"[{index+1}] {parametr}" for index, parametr in enumerate(self.options.keys())]
         
