@@ -1,4 +1,4 @@
-import os, ujson
+
         
 class Config():
     
@@ -17,19 +17,21 @@ class Config():
     
 class DDosConfig():
     
+    
+    
     nickname = "Tedeshi"
     
     restricted_parameters = ["path", "restricted_parameters"]
     path = "./temp/ddos.config"
     
     def __init__(self) -> None:
-        
+        import os, ujson
         if os.path.exists(self.path): 
     
             self.nickname = ujson.loads(open(self.path).read())["nickname"]
             
     def set_parameters(self, **kwargs):
-        
+        import ujson
         dictz:dict = ujson.loads(open(self.path, "r").read())
         
         with open(self.path, "w") as f:
