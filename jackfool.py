@@ -1,5 +1,6 @@
 import os, sys
 from modules.configs import Config
+from modules.menu import ParentMenu
 
 def cls(): os.system('cls' if os.name=='nt' else 'clear')
 
@@ -27,8 +28,18 @@ def init():
     #     with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
     #     os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
     #     open(Config.webdriver_version_path, "w").write(Config.webdriver_version) # Update the local version
-    
 
+
+def open_menu():
+    
+    from modules.minigames import Guesspionage
+    
+    ParentMenu("Jackfool", {
+                            "Нашшпионаж": (Guesspionage().open_menu, {"back_function": open_menu}),
+                            #"DDos": (None)
+                           }
+              ).createMenu()
+    
 
 if __name__ == "__main__":
     
@@ -52,9 +63,9 @@ if __name__ == "__main__":
                     except: JBDdos().ddos_by_code(sys.argv[sys.argv.index("--ddos") + 1])
             except: JBDdos().open_menu(None)
             
-        elif "--guesspionage": 
+        elif "--guesspionage" in [_.lower() for _ in sys.argv]: 
             from modules.minigames import Guesspionage
             
             Guesspionage().open_menu()
         
-        else: pass
+        else: open_menu()

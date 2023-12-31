@@ -4,15 +4,20 @@ import os
 
 class BaseDriver(webdriver.Chrome):
     
-    def __init__(self, is_visible = False, options = webdriver.ChromeOptions(),  service = webdriver.ChromeService(executable_path=None, log_path=os.devnull) ):
+    def __init__(self, 
+                 is_visible = False, 
+                 options = webdriver.ChromeOptions(), 
+                 service = webdriver.ChromeService(executable_path=None, log_path=os.devnull) ):
+        import logging
         
         if not is_visible:
             options.headless = True
             options.add_argument('incognito')
             options.add_argument('--disable-gpu')
-            self.minimize_window()
-        
+            options.add_argument("--log-level=5")
+            
         super().__init__(options, service)
+        self.minimize_window()
 
 
 class PlayerDriver(BaseDriver):

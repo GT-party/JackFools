@@ -6,14 +6,15 @@ class ParentMenu():
     
     def __init__(self, 
                  title:str="Title", 
-                 options:dict[str, callable]=None):
+                 options:dict[str, tuple[callable, dict[str, None]]]=None):
         
         self.title = title
         self.options = options
         
     def createMenu(self):
         
-        options_list = [f"[{index}] {parametr}" for index, parametr in enumerate(self.options.keys())]
+        options_list = [f"[{index+1}] {parametr}" for index, parametr in enumerate(self.options.keys())]
+        
         title = art.text2art(self.title)
         index = 0
 
@@ -21,6 +22,9 @@ class ParentMenu():
             
             option, index = pick.pick(options_list, title, indicator='=>', default_index=index)
             
-            if self.options[" ".join(options_list[index].split(" ")[1:])] is None: return
-            else: self.options[" ".join(options_list[index].split(" ")[1:])].__call__()
-        
+            func, kwargs = self.options.get(option[4:])
+            
+            if not func is None: 
+                if kwargs: func.__call__(**kwargs)
+                else: func.__call__()
+            else: return 

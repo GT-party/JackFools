@@ -14,7 +14,7 @@ def open_code_input_menu():
     while True:
         cls()
         print(art.text2art("Code input"))
-        code = input("\nВведите код игры[0 - чтобы назад]: ").upper()
+        code = input("\nВведите код игры [0 - чтобы назад]: ").upper()
         
         if code == "0": break
         elif len(code) != 4: continue
@@ -65,7 +65,7 @@ class Guesspionage:
             
     def create_auditors(self, count = 6, nickname = "Tedeshi_"): 
         
-        if not self.code: self.code = self.open_code_input_menu()
+        if not self.code: self.code = open_code_input_menu()
         
         started_proccess:list[multiprocessing.Process] = []
         
@@ -79,9 +79,21 @@ class Guesspionage:
        
     def kill_auditors(self): 
         
-        for audit in self.auditors: 
-            audit.kill()
-            self.auditors.remove(audit)
+        for audit in self.auditors: audit.kill()
+            
+        while [x for x in self.auditors if x.is_alive()] != []:
+            
+            cls()
+            
+            print(art.text2art("DDOSING..."))
+            
+            print(" ".join(["[ ]" if x.is_alive() else "[X]" for x in self.auditors ]))
+            
+            sleep(0.1)
+        
+        cls()
+        
+        self.auditors = []
     
     def enter_to_the_game(self) -> None: 
         
@@ -91,19 +103,16 @@ class Guesspionage:
     
     def open_menu(self, back_function=None): 
         
-        while True:
-            
-            full_menu_dict = {}
-            
-            if not self.entred: full_menu_dict.update({"Войти в игру": None})
-            else: full_menu_dict.update({"Ответить правильно": None,
-                                         "Ответить неправильно": None})
-            
-            if not self.auditors: full_menu_dict.update({"Инициировать фейк-зрителей": self.create_auditors})
-            else: full_menu_dict.update({"Убрать зрителей": self.kill_auditors})
-            
-            
-            full_menu_dict.update({"Назад": back_function})
-            
-            ParentMenu("Guesspionage", full_menu_dict).createMenu()
+        full_menu_dict = {}
+        
+        if not self.entred: full_menu_dict.update({"Войти в игру": (None, None)})
+        else: full_menu_dict.update({"Ответить правильно": (None, None),
+                                     "Ответить неправильно": (None, None)})
+        
+        if not self.auditors: full_menu_dict.update({"Инициировать фейк-зрителей": (self.create_auditors, None)})
+        else: full_menu_dict.update({"Убрать зрителей": (self.kill_auditors, None)})
+        
+        full_menu_dict.update({"Назад": (None, None)})
+        
+        ParentMenu("Guesspionage", full_menu_dict).createMenu()
     
