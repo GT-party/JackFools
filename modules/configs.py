@@ -23,9 +23,9 @@ class DDosConfig():
     
     def __init__(self) -> None:
         import os, ujson
-        if os.path.exists(self.path): 
-    
+        if os.path.exists(self.path):
             self.nickname = ujson.loads(open(self.path).read())["nickname"]
+        else: open(self.path, "w").write(ujson.dumps({"nickname": self.nickname}))
             
     def set_parameters(self, **kwargs):
         import ujson
