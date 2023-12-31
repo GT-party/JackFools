@@ -85,9 +85,9 @@ class JBDdos():
     
     def open_menu(self, back_function=None): 
         
-        ParentMenu("JBF-DDOS", {"Заддудосить": self.open_code_input_menu,
-                                "Поменять никнейм": self.input_nickname,
-                                "Назад": back_function}).createMenu()
+        ParentMenu("JBF-DDOS", {"Заддудосить": (self.open_code_input_menu, None),
+                                "Поменять никнейм": (self.input_nickname, None),
+                                "Назад": (back_function, None)}).createMenu()
     
     def input_nickname(self):
         
@@ -98,6 +98,9 @@ class JBDdos():
             if nickname == None: pass
             elif nickname == "": return self.config.nickname
             elif not (len(nickname) < 11 and len(nickname) > 0): print(f"Длина никнейма должна быть от 1 до 11 символов...[{nickname}]")
-            else: return nickname
+            else: break
             
             nickname = input(f"DDOS никнейм [Enter, чтобы установить по дефолту: {self.config.nickname}]: ")
+
+            
+        self.config.set_parameters(nickname=nickname)

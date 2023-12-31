@@ -23,7 +23,7 @@ def init():
     #     # if installed WebDriver version don't equal actual version
     #     from modules.downloader import download
     #     from zipfile import ZipFile
-        
+    
     #     download([Config.webdriver_url], dest_dir="./temp") # Download archive with webdriver
     #     with ZipFile("./temp/" + Config.webdriver_url.split("/")[-1], "r") as zfile: zfile.extractall("./temp") # unpack archive
     #     os.remove("./temp/" + Config.webdriver_url.split("/")[-1]) # Delete unpacked archive
@@ -33,10 +33,11 @@ def init():
 def open_menu():
     
     from modules.minigames import Guesspionage
+    from modules.ddos import JBDdos
     
     ParentMenu("Jackfool", {
                             "Нашшпионаж": (Guesspionage().open_menu, {"back_function": open_menu}),
-                            #"DDos": (None)
+                            "DDos": (JBDdos().open_menu, {"back_function": open_menu})
                            }
               ).createMenu()
     

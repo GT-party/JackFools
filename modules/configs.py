@@ -3,7 +3,7 @@ import os, ujson
 class Config():
     
     # JackBoxFools config
-    version = 0.4
+    version = 0.5
     version_path = "./temp/jbfools.version"
     
     # Screen parameteres
