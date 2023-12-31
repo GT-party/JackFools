@@ -9,7 +9,7 @@ def init():
     # initial checks
     if not os.path.exists("./temp"): os.mkdir("./temp")
     if not os.path.exists(Config.version_path): open(Config.version_path, "w").write(str(Config.version))
-    # if not os.path.exists(Config.webdriver_version_path): open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version))
+    if not os.path.exists(Config.webdriver_version_path): open(Config.webdriver_version_path, "w").write(str(Config.webdriver_version))
     
     
     if float(open(Config.version_path).read()) < Config.version:
