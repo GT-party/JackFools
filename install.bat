@@ -1,5 +1,5 @@
 @echo off
-git clone https://github.com/Geardung/JackFools
+git clone https://github.com/GT-party/JackFools
 cd JackFools
 git config --global --add safe.directory %cd%
 py -m pip install --upgrade pip
