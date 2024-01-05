@@ -18,7 +18,7 @@ def init():
         open(Config.version_path, "w").write(str(Config.version)) # Update the local version
     
     if open(Config.webdriver_version_path).read() != Config.webdriver_version or \
-        (not os.path.exists("./temp/chromedriver-win32")):
+        (not os.path.exists("./temp/chromedriver-win32/chromedriver.exe")):
         
         # if installed WebDriver version don't equal actual version
         from modules.downloader import download
@@ -60,13 +60,13 @@ if __name__ == "__main__":
                 if len(sys.argv[sys.argv.index("--ddos") + 1]) == 4: 
                     try:
                         sys.argv[sys.argv.index("--ddos") + 2]
-                        JBDdos().ddos_by_code(sys.argv[sys.argv.index("--ddos") + 1], int(sys.argv[sys.argv.index("--ddos") + 2]))
-                    except: JBDdos().ddos_by_code(sys.argv[sys.argv.index("--ddos") + 1])
-            except: JBDdos().open_menu(None)
+                        JBDdos().ddos_by_code_inputting(sys.argv[sys.argv.index("--ddos") + 1], int(sys.argv[sys.argv.index("--ddos") + 2]))
+                    except: JBDdos().ddos_by_code_inputting(code=sys.argv[sys.argv.index("--ddos") + 1])
+            except: JBDdos().open_menu(open_menu)
             
         elif "--guesspionage" in [_.lower() for _ in sys.argv]: 
             from modules.minigames import Guesspionage
             
-            Guesspionage().open_menu()
+            Guesspionage().open_menu(open_menu)
         
         else: open_menu()

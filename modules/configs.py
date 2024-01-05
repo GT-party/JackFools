@@ -2,7 +2,7 @@
 class Config():
     
     # JackBoxFools config
-    version = 0.5
+    version = 0.52
     version_path = "./temp/jbfools.version"
     
     # Screen parameteres
@@ -11,8 +11,8 @@ class Config():
     # WebDriver config
     webdriver_version_path = "./temp/webdriver.version"
     webdriver_version = "120.0.6099.109"
-    webdriver_url = f"https://chromedriver.storage.googleapis.com/{webdriver_version}/chromedriver_win32.zip"
-    webdriver_url = f"https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{webdriver_version}/win32/chrome-headless-shell-win32.zip"
+    
+    webdriver_url = f"https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{webdriver_version}/win32/chromedriver-win32.zip"
     
 class DDosConfig():
     
@@ -23,8 +23,8 @@ class DDosConfig():
     
     def __init__(self) -> None:
         import os, ujson
-        if os.path.exists(self.path):
-            self.nickname = ujson.loads(open(self.path).read())["nickname"]
+        
+        if os.path.exists(self.path): self.nickname = ujson.loads(open(self.path).read())["nickname"]
         else: open(self.path, "w").write(ujson.dumps({"nickname": self.nickname}))
             
     def set_parameters(self, **kwargs):
