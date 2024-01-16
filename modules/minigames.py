@@ -27,17 +27,16 @@ def open_code_input_menu():
     if code == "0": return None
     else: return code
 
-class Guesspionage:
+class BaseMinigame:
+        
+    code: str = None
     
-    def __init__(self) -> None:
-        
-        self.code: str = None
-        
-        self.driver: PlayerDriver = None
-        
-        self.entred: bool = False
-        self.auditors: list[multiprocessing.Process] = []
+    driver: PlayerDriver = None
+    
+    is_entred: bool = False
+    auditors: list[multiprocessing.Process] = []
 
+class Guesspionage(BaseMinigame):
         
     def instanse_create(self, code: str, nickname):
             sleep(2)
@@ -95,8 +94,20 @@ class Guesspionage:
         
         self.auditors = []
     
-    def enter_to_the_game(self) -> None: 
+    def enter_to_the_game(self) -> None: pass
+    
+    def answer_the_question(self):
         
+        # Когда процент выбираешь не ты
+        # Выбрать выше или ниже
+        
+        # Текст вопроса: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/p[1]
+        # Какой был выбор отвечающего: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/p[2]
+        
+        # Кнопка намного выше: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/form/button[1]
+        # Кнопка выше: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/form/button[2]
+        # Кнопка ниже: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/form/button[3]
+        # Кнопка ещё ниже: /html/body/div/div/div[1]/div/div/div[3]/div[13]/div/form/button[4]
         
         
         pass
@@ -105,9 +116,8 @@ class Guesspionage:
         
         full_menu_dict = {}
         
-        if not self.entred: full_menu_dict.update({"Войти в игру": (None, None)})
-        else: full_menu_dict.update({"Ответить правильно": (None, None),
-                                     "Ответить неправильно": (None, None)})
+        if not self.is_entred: full_menu_dict.update({"Войти в игру": (None, None)})
+        else: full_menu_dict.update({"Ответить правильно": (None, None)})
         
         if not self.auditors: full_menu_dict.update({"Инициировать фейк-зрителей": (self.create_auditors, None)})
         else: full_menu_dict.update({"Убрать зрителей": (self.kill_auditors, None)})
@@ -115,4 +125,23 @@ class Guesspionage:
         full_menu_dict.update({"Назад": (None, None)})
         
         ParentMenu("Guesspionage", full_menu_dict).createMenu()
+
+class TriviaMurder2(BaseMinigame):
     
+    def __init__(self) -> None:
+        
+        super().__init__()
+    
+    def open_menu(self, back_function=None): 
+        
+        full_menu_dict = {}
+        
+        if not self.is_entred: full_menu_dict.update({"Войти в игру": (None, None)})
+        else: full_menu_dict.update({"Ответить правильно": (None, None)})
+        
+        if not self.auditors: full_menu_dict.update({"Инициировать фейк-игроков": (None, None)})
+        else: full_menu_dict.update({"Убрать зрителей": (None, None)})
+        
+        full_menu_dict.update({"Назад": (None, None)})
+        
+        ParentMenu("Guesspionage", full_menu_dict).createMenu()
