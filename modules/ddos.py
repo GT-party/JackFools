@@ -3,7 +3,7 @@ import os, ujson, multiprocessing
 from time import sleep
 
 from modules.menu import ParentMenu
-from modules.webdriver import AuditorDriver, NewBaseDriver
+from modules.webdriver import AuditorDriver
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait

@@ -1,24 +1,6 @@
 from selenium import webdriver
 import os, time
 
-class NewBaseDriver(webdriver.Edge):
-    
-    def __init__(self,
-                 is_visible = False, 
-                 options = webdriver.EdgeOptions(), 
-                 service = webdriver.EdgeService(executable_path="./temp/msedgedriver.exe", 
-                                                 log_path=os.devnull)):
-        
-        
-        if not is_visible:
-        
-            options.add_argument('-headless')  # Установите голову в режим без головы (т.е. невидимый)
-            options.add_argument("--log-level=3")
-
-        super().__init__(options, service)
-        #print ("\033[A                                                                                                \033[A")
-        if not is_visible: self.minimize_window()
-
 class BaseDriver(webdriver.Chrome):
     
     def __init__(self, 
